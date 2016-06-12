@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "778054671595",
+    "project_id": "gcmt-bca13"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778054671595:android:a86ab945c227f087",
+        "android_client_info": {
+          "package_name": "coy.yudha.gcm"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQw7ULG-p37T6EEKEvGFUl9ALRdvPmLWk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

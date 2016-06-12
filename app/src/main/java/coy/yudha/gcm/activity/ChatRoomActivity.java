@@ -183,8 +183,8 @@ public class ChatRoomActivity extends AppCompatActivity {
                         String createdAt = commentObj.getString("created_at");
 
                         JSONObject userObj = obj.getJSONObject("user");
-                        String userId = userObj.getString("user_id");
-                        String userName = userObj.getString("name");
+                        String userId = userObj.getString("id_user");
+                        String userName = userObj.getString("username");
                         User user = new User(userId, userName, null);
 
                         Message message = new Message();
@@ -224,7 +224,7 @@ public class ChatRoomActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
-                params.put("user_id", MyApplication.getInstance().getPrefManager().getUser().getId());
+                params.put("id_user", MyApplication.getInstance().getPrefManager().getUser().getId());
                 params.put("message", message);
 
                 Log.e(TAG, "Params: " + params.toString());
@@ -278,7 +278,7 @@ public class ChatRoomActivity extends AppCompatActivity {
                             String createdAt = commentObj.getString("created_at");
 
                             JSONObject userObj = commentObj.getJSONObject("user");
-                            String userId = userObj.getString("user_id");
+                            String userId = userObj.getString("id_user");
                             String userName = userObj.getString("username");
                             User user = new User(userId, userName, null);
 

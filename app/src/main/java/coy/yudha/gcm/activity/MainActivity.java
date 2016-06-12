@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 ChatRoom chatRoom = chatRoomArrayList.get(position);
                 Intent intent = new Intent(MainActivity.this, ChatRoomActivity.class);
                 intent.putExtra("chat_room_id", chatRoom.getId());
-                intent.putExtra("name", chatRoom.getName());
+                intent.putExtra("username", chatRoom.getName());
                 startActivity(intent);
             }
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
                             JSONObject chatRoomsObj = (JSONObject) chatRoomsArray.get(i);
                             ChatRoom cr = new ChatRoom();
                             cr.setId(chatRoomsObj.getString("chat_room_id"));
-                            cr.setName(chatRoomsObj.getString("name"));
+                            cr.setName(chatRoomsObj.getString("username"));
                             cr.setLastMessage("");
                             cr.setUnreadCount(0);
                             cr.setTimestamp(chatRoomsObj.getString("created_at"));

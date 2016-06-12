@@ -86,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        final String name = inputName.getText().toString();
+        final String username = inputName.getText().toString();
         final String email = inputEmail.getText().toString();
 
         StringRequest strReq = new StringRequest(Request.Method.POST,
@@ -104,8 +104,8 @@ public class LoginActivity extends AppCompatActivity {
                         // user successfully logged in
 
                         JSONObject userObj = obj.getJSONObject("user");
-                        User user = new User(userObj.getString("user_id"),
-                                userObj.getString("name"),
+                        User user = new User(userObj.getString("id_user"),
+                                userObj.getString("username"),
                                 userObj.getString("email"));
 
                         // storing user in shared preferences
@@ -129,7 +129,22 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                NetworkResponse networkResponse = error.networkResponse;
+                String json = null;
+                NetworkResponse networkResponse = error.networkResponse; //neng kene erore
+
+                if (networkResponse !=null && networkResponse.data != null){
+                    switch(networkResponse.statusCode){
+                        case 400:
+                            json = new String(networkResponse.data);
+                            json = trimMessage(json,"message");
+                            if (json !=null){
+                                Toast.makeText(getApplicationContext(), "Volley Success: " +json, Toast.LENGTH_SHORT).show();
+                            }
+                            break;
+                    }
+                    Toast.makeText(getApplicationContext(), "Volley error code lala yeyeye: " + error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
                 Log.e(TAG, "Volley error: " + error.getMessage() + ", code: " + networkResponse);
                 Toast.makeText(getApplicationContext(), "Volley error: " + error.getMessage(), Toast.LENGTH_SHORT).show();
             }
@@ -138,7 +153,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("name", name);
+                params.put("username", username);
                 params.put("email", email);
 
                 Log.e(TAG, "params: " + params.toString());
@@ -148,6 +163,19 @@ public class LoginActivity extends AppCompatActivity {
 
         //Adding request to request queue
         MyApplication.getInstance().addToRequestQueue(strReq);
+    }
+
+    private String trimMessage(String json, String message) {
+        String trimmedString = null;
+        try{
+            JSONObject obj = new JSONObject(json);
+            trimmedString = obj.getString(message);
+
+        } catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+        return trimmedString;
     }
 
     private void requestFocus(View view) {
